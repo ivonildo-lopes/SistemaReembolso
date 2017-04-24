@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<ui:composition template="/WEB-INF/template/LayoutPadrao.xhtml"
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+
+	<ui:define name="titulo">Pesquisa de Setor</ui:define>
+
+	<ui:define name="corpo">
+		<h:form id="frm">
+			<h1>Pesquisa de Setor</h1>
+
+			<p:messages autoUpdate="true" closable="true" />
+
+			<p:toolbar style="margin-top: 20px">
+				<p:toolbarGroup>
+					<p:commandButton value="Pesquisar" style="height:30px" icon="ui-icon-search"
+						action="#{setorBean.pesquisar()}" update="@form" />
+				</p:toolbarGroup>
+				<p:toolbarGroup align="right">
+					<p:button value="Novo" outcome="/privado/setor/form" style="height:30px" icon="ui-icon-plus"/>
+				</p:toolbarGroup>
+			</p:toolbar>
+
+			<p:panelGrid columns="2" id="painel"
+				style="width: 100%; margin-top: 20px" columnClasses="rotulo, campo">
+				
+				<p:outputLabel value="Nome" for="nome" />
+				<p:inputText id="nome" size="60"
+					value="#{setorBean.setorParaPesquisa.nome}" styleClass="up" />
+			</p:panelGrid>
+
+			<p:dataTable id="tabela"
+				value="#{setorBean.listaSetor}" var="setor"
+				style="margin-top: 20px;font-size:10px"
+				emptyMessage="Nenhum setor encontrado." rows="10" paginator="true"
+				paginatorAlwaysVisible="false" paginatorPosition="bottom">
+
+
+				<p:column headerText="ID">
+					<h:outputText value="#{setor.id}" />
+				</p:column>
+				
+				<p:column headerText="Nome">
+					<h:outputText value="#{setor.nome}" />
+				</p:column>
+
+			</p:dataTable>
+
+		</h:form>
+	</ui:define>
+</ui:composition>

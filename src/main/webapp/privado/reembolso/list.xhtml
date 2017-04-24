@@ -1,0 +1,158 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<ui:composition template="/WEB-INF/template/LayoutPadrao.xhtml"
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+
+	<ui:define name="titulo">Pesquisa de Reembolso</ui:define>
+
+	<ui:define name="corpo">
+		<h:form id="frm">
+			<h1>Pesquisa de Reembolso</h1>
+
+			<p:messages autoUpdate="true" closable="true" />
+
+			<p:toolbar style="margin-top: 20px">
+				<p:toolbarGroup>
+					<p:commandButton value="Pesquisar" style="height:30px"
+						icon="ui-icon-search" action="#{reembolsoBean.pesquisar()}"
+						update="@form" />
+				</p:toolbarGroup>
+				<p:toolbarGroup align="right">
+					<p:button value="Novo" outcome="/privado/reembolso/form"
+						style="height:30px" icon="ui-icon-plus" />
+				</p:toolbarGroup>
+			</p:toolbar>
+
+			<p:panelGrid columns="2" id="painelBasico"
+				rendered="#{seguranca.acessoBasico()}"
+				style="width: 100%; margin-top: 20px" columnClasses="rotulo, campo">
+
+				<p:outputLabel value="Nome" />
+				<p:inputText size="60" value="#{reembolsoBean.filtro.nome}"
+					styleClass="up" disabled="true" />
+			</p:panelGrid>
+
+			<p:panelGrid columns="2" id="painel"
+				rendered="#{!seguranca.acessoBasico()}"
+				style="width: 100%; margin-top: 20px" columnClasses="rotulo, campo">
+
+				<p:outputLabel value="Nome" for="nome" />
+				<p:inputText id="nome" size="60"
+					value="#{reembolsoBean.filtro.nome}" styleClass="up" />
+			</p:panelGrid>
+
+
+			<p:dataTable id="tabela" value="#{reembolsoBean.lista}"
+				var="reembolso" style="margin-top: 20px;font-size:13px"
+				emptyMessage="Nenhum reembolso encontrado." rows="10"
+				paginator="true" paginatorAlwaysVisible="false"
+				paginatorPosition="bottom" reflow="true"
+				rowStyleClass="#{reembolso.estadoParaPagamento.descricao == 'REJEITADO' ? 'linhaTabela' : null}">
+
+
+				<p:column headerText="Nome">
+					<h:outputText value="#{reembolso.funcionario.nome}" />
+				</p:column>
+
+				<p:column headerText="Valor" width="60">
+					<h:outputText value="#{reembolso.valor}">
+						<f:convertNumber type="currency" />
+					</h:outputText>
+				</p:column>
+
+				<p:column headerText="Foto" width="60">
+					<p:commandButton styleClass="camera" value="" id="content"
+						style="background-color:white;border:0px;margin-left:5px" />
+
+					<p:tooltip id="toolTipContent" for="content" position="bottom">
+						<p:graphicImage library="imagesUpload" width="300" height="300"
+							name="#{reembolso.nomeDaImagem}" />
+					</p:tooltip>
+				</p:column>
+
+				<p:column headerText="Projeto">
+					<h:outputText value="#{reembolso.projeto.nome}" />
+
+				</p:column>
+
+				<p:column headerText="Categoria">
+					<h:outputText value="#{reembolso.categoria.nome}" />
+				</p:column>
+
+				<p:column headerText="Data" width="60">
+					<h:outputText value="#{reembolso.data}">
+						<f:convertDateTime pattern="dd/MM/yyyy" />
+					</h:outputText>
+				</p:column>
+
+
+				<p:column headerText="Situação" width="100">
+					<h:outputLabel value="#{reembolso.estadoParaPagamento.descricao}" />
+				</p:column>
+
+
+				<p:column headerText="Operação de Aprovação" width="150"
+					rendered="#{seguranca.acessoAprovacao()}">
+
+
+					<p:commandButton styleClass="aprovados" value=""
+						title="APROVAR PARA PAGAMENTO"
+						style="background-color:white;border:0px;margin-left:5px"
+						disabled="#{reembolso.isAprovadoOuRejeitado() or reembolso.isPago()}"
+						action="#{reembolsoBean.aprovar(reembolso)}" update="tabela" />
+
+
+					<p:commandButton styleClass="rejeitados" value="" title="REJEITAR"
+						style="background-color:white;border:0px;margin-left:8px"
+						disabled="#{reembolso.isAprovadoOuRejeitado() or reembolso.isPago()}"
+						action="#{reembolsoBean.rejeitar(reembolso)}" update="tabela" />
+
+
+					<p:commandButton styleClass="esperando" value=""
+						title="AGUARDAR APROVAÇÃO"
+						style="background-color:white;border:0px;margin-left:8px"
+						disabled="#{reembolso.isAguardandoAprovacao() or reembolso.isPago()}"
+						action="#{reembolsoBean.esperar(reembolso)}" update="tabela" />
+
+
+				</p:column>
+
+
+
+				<p:column headerText="Operação de Pagamento" style="height:40px"
+					width="120" rendered="#{seguranca.acessoVisualPagamento()}">
+
+					<p:commandButton styleClass="pagos" value=""
+						title="EFETUAR PAGAMENTO"
+						style="background-color:white;border:0px;margin-left:5px"
+						disabled="#{reembolso.isNaoAprovado() or !seguranca.acessoPagamento()}"
+						action="#{reembolsoBean.pagar(reembolso)}" update="tabela" />
+
+
+					<p:commandButton styleClass="cancela" value=""
+						title="CANCELAR PAGAMENTO"
+						style="background-color:white;border:0px;margin-left:8px"
+						disabled="#{seguranca.naoAcessoPagamento() or reembolso.isNaoPago() or reembolso.cancelaPagamento()}"
+						action="#{reembolsoBean.cancelarPagamento(reembolso)}"
+						update="tabela" />
+				</p:column>
+
+				<p:column style="width:32px;text-align: center">
+					<p:commandButton update=":frm:remDetail"
+						oncomplete="PF('remDialog').show()" icon="ui-icon-search"
+						title="View">
+						<f:setPropertyActionListener value="#{reembolso}"
+							target="#{reembolsoBean.reembolso}" />
+					</p:commandButton>
+				</p:column>
+
+			</p:dataTable>
+
+			<ui:include src="/privado/reembolso/dialogReembolso.xhtml" />
+
+		</h:form>
+	</ui:define>
+</ui:composition>

@@ -1,0 +1,47 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui">
+
+<ui:composition template="templates/template_login.xhtml">
+
+
+	<ui:define name="content">
+
+		<f:metadata>
+			<f:event listener="#{loginBean.preRender}" type="preRenderView"/>
+		</f:metadata>
+
+		<div id="alinharCentro">
+		<h:form id="form-login" class="form-login" prependId="false">
+			
+				<div class="tituloform">
+					<h:graphicImage url="resources/images/logoM.png"/>
+					<h2>Manhattan</h2>
+					<span>Gerenciamento de Reembolso</span>
+				</div>
+
+				<div class="conteudo">
+				<!--  <h:panelGrid columns="2" rendered="#{controleLogin.usuarioLogado == null}"> -->
+					
+					<p:outputLabel value="Usuario"/>
+					<p:inputText value="#{loginBean.usuario}" placeholder="Nome do Usuario"
+					class="campos" id="j_username"/>
+					<div class="usuario-icon" />	
+						
+					<p:outputLabel value="Senha"/>
+					<p:password placeholder="Senha" class="campos" id="j_password"/>	
+					<div class="password-icon" />	
+				
+					<h:commandButton action="#{loginBean.login}" value="Entrar"  styleClass="botaoLoginn" />
+				
+				<!--  </h:panelGrid>-->
+				</div>
+			 	  		<p:messages/> 
+		</h:form>
+		</div>
+	</ui:define>
+</ui:composition>
+</html>

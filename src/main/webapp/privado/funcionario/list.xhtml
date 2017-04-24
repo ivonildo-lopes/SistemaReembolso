@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<ui:composition template="/WEB-INF/template/LayoutPadrao.xhtml"
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+
+	<ui:define name="titulo">Pesquisa de Funcionario</ui:define>
+
+	<ui:define name="corpo">
+		<h:form id="frm" enctype="multipart/form-data">
+			<h1>Pesquisa de Funcionario</h1>
+
+			<p:messages autoUpdate="true" closable="true" />
+
+			<p:toolbar style="margin-top: 20px">
+				<p:toolbarGroup>
+					<p:commandButton value="Pesquisar" style="height:30px" icon="ui-icon-search"
+						action="#{funcionarioBean.pesquisar()}" update="@form" />
+				</p:toolbarGroup>
+				<p:toolbarGroup align="right">
+					<p:button value="Novo" outcome="/privado/funcionario/form" style="height:30px" icon="ui-icon-plus"/>
+				</p:toolbarGroup>
+			</p:toolbar>
+
+			<p:panelGrid columns="2" id="painel"
+				style="width: 100%; margin-top: 20px" columnClasses="rotulo, campo">
+
+				<p:outputLabel value="Nome" for="nome" />
+				<p:inputText id="nome" size="60"
+					value="#{funcionarioBean.filtro.nome}" styleClass="up" />
+			</p:panelGrid>
+
+			<p:dataTable id="tabela" value="#{funcionarioBean.lista}"
+				var="funcionario" style="margin-top: 20px;font-size:10px"
+				emptyMessage="Nenhum funcionario encontrado." rows="10"
+				paginator="true" paginatorAlwaysVisible="false"
+				paginatorPosition="bottom">
+
+
+				<p:column headerText="Nome">
+					<h:outputText value="#{funcionario.nome}" />
+				</p:column>
+
+				<p:column headerText="Setor">
+					<h:outputText value="#{funcionario.setor.nome}" />
+				</p:column>
+
+				<p:column headerText="Permissao">
+					<h:outputText value="#{funcionario.permissao.nome}" />
+				</p:column>
+
+				<p:column headerText="Email">
+					<h:outputText value="#{funcionario.email}" />
+				</p:column>
+
+				<p:column style="width: 100px; text-align: center">
+					<p:button icon="ui-icon-pencil" title="Editar"
+						outcome="/privado/funcionario/form">
+						<f:param name="funcionario" value="#{funcionario.id}" />
+					</p:button>
+
+				</p:column>
+
+				<p:column style="width:32px;text-align: center">
+					<p:commandButton update=":frm:carDetail"
+						oncomplete="PF('carDialog').show()" icon="ui-icon-search"
+						title="View">
+						<f:setPropertyActionListener value="#{funcionario}"
+							target="#{funcionarioBean.funcionario}" />
+					</p:commandButton>
+				</p:column>
+
+			</p:dataTable>
+
+
+			<p:dialog header="Funcionario Info" widgetVar="carDialog" modal="true"
+				showEffect="fade" hideEffect="fade" resizable="false">
+				<p:outputPanel id="carDetail" style="text-align:center;">
+					<p:panelGrid columns="2"
+						rendered="#{not empty funcionarioBean.funcionario}"
+						columnClasses="label,value">
+						
+						
+						<f:facet name="header">
+							<h:graphicImage library="images" name="logo1.jpg"/>
+						</f:facet>
+						
+						<f:facet name="footer">
+							<h:graphicImage library="imagesUpload" name="#{funcionarioBean.funcionario.nomeDaImagem}"
+							width="150" height="130"/>
+						</f:facet>
+
+						<h:outputText value="Nome:" />
+						<h:outputText value="#{funcionarioBean.funcionario.nome}" />
+
+					</p:panelGrid>
+				</p:outputPanel>
+			</p:dialog>
+
+		</h:form>
+	</ui:define>
+</ui:composition>

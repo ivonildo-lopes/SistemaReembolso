@@ -1,0 +1,67 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui">
+
+<h:form>
+	<p:graphicImage value="#{controleLogin.usuarioLogado.imagem}"
+			cache="false" style="width:120px;height:120px" />
+
+	<h:panelGrid columns="1" rendered="#{controleLogin.usuarioLogado != null}">
+		<p:commandLink action="/index?faces-redirect=true" value="Home" />
+
+		<p:slideMenu style="height:150px;font-size:11px">
+			
+			<p:submenu label="Grupos" >
+				<p:menuitem value="Cadastro de Grupo" 
+					action="/privado/grupo/formGrupo?faces-redirect=true" />
+				<p:menuitem value="Consulta de Grupo"  
+					action="/privado/grupo/listGrupo?faces-redirect=true" />
+			</p:submenu>
+			
+			<p:submenu label="Setores" >
+				<p:menuitem value="Cadastro de Setor" 
+					action="/privado/setor/formSetor?faces-redirect=true" />
+				<p:menuitem value="Consulta de Setor"  
+					action="/privado/setor/listSetor?faces-redirect=true" />
+			</p:submenu>
+			
+			<p:submenu label="Funcionario" >
+				<p:menuitem value="Cadastro de Funcionario" 
+					action="/privado/funcionario/formFuncionario?faces-redirect=true" />
+				<p:menuitem value="Consulta de Funcionario"  
+					action="/privado/funcionario/listFuncionario?faces-redirect=true" />
+			</p:submenu>
+			
+			<p:submenu label="Projeto" >
+				<p:menuitem value="Cadastro de Projeto" 
+					action="/privado/projeto/formProjeto?faces-redirect=true" />
+				<p:menuitem value="Consulta de Projetos"  
+					action="/privado/projeto/listProjeto?faces-redirect=true" />
+			</p:submenu>
+			
+			<p:submenu label="Contra cheque" >
+				<p:menuitem value="Cadastrar ContraCheque" 
+					action="/privado/contraCheque/form?faces-redirect=true" />
+				<p:menuitem value="Consulta de Projetos"  
+					action="/privado/projeto/listProjeto?faces-redirect=true" />
+			</p:submenu>
+
+		</p:slideMenu>
+		
+		<p:commandLink action="#{controleLogin.sair()}" value="Sair"/>
+
+	</h:panelGrid>
+	
+	<h:panelGrid columns="1" rendered="#{controleLogin.usuarioLogado == null}">
+		<h:commandLink action="#{controleLogin.paginaLogin()}" value="Efetuar Login" />
+	
+	
+	
+	</h:panelGrid>
+
+</h:form>
+
+</html>

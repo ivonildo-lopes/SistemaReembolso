@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<ui:composition template="/WEB-INF/template/LayoutPadrao.xhtml"
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+
+	<ui:define name="titulo">Pesquisa de Categoria</ui:define>
+
+	<ui:define name="corpo">
+		<h:form id="frm">
+			<h1>Pesquisa de Categoria</h1>
+
+			<p:messages autoUpdate="true" closable="true" />
+
+			<p:toolbar style="margin-top: 20px">
+				<p:toolbarGroup>
+					<p:commandButton value="Pesquisar" style="height:30px" icon="ui-icon-search"
+						action="#{categoriaBean.pesquisar()}" update="@form" />
+				</p:toolbarGroup>
+				<p:toolbarGroup align="right">
+					<p:button value="Novo" outcome="/privado/categoria/form"  style="height:30px" icon="ui-icon-plus"/>
+				</p:toolbarGroup>
+			</p:toolbar>
+
+			<p:panelGrid columns="2" id="painel"
+				style="width: 100%; margin-top: 20px" columnClasses="rotulo, campo">
+				
+				<p:outputLabel value="Nome" for="nome" />
+				<p:inputText id="nome" size="60"
+					value="#{categoriaBean.categoriaParaPesquisa.nome}" styleClass="up" />
+			</p:panelGrid>
+
+			<p:dataTable id="tabela"
+				value="#{categoriaBean.listaCategoria}" var="categoria"
+				style="margin-top: 20px;font-size:12px"
+				emptyMessage="Nenhum categoria encontrado." rows="10" paginator="true"
+				paginatorAlwaysVisible="false" paginatorPosition="bottom">
+
+
+				<p:column headerText="ID" width="30">
+					<h:outputText value="#{categoria.id}" />
+				</p:column>
+				
+				<p:column headerText="Nome">
+					<h:outputText value="#{categoria.nome}" />
+				</p:column>
+				
+				<p:column headerText="Funcionario que cadastrou">
+					<h:outputText value="#{categoria.funcionario_cadastro.nome}" />
+				</p:column>
+				
+				<p:column headerText="Data Cadastro">
+					<h:outputText value="#{categoria.data_cadastro}">
+						<f:convertDateTime pattern="dd/MM/yyyy HH:mm:ss" locale="pt" timeZone="GMT-03:00"/>
+					</h:outputText>
+				</p:column>
+				
+				<p:column headerText="Funcionario que alterou">
+					<h:outputText value="#{categoria.funcionario_alteracao.nome}" />
+				</p:column>
+				
+				<p:column headerText="Data alteração">
+					<h:outputText value="#{categoria.data_alteracao}" >
+						<f:convertDateTime pattern="dd/MM/yyyy HH:mm:ss" locale="pt" timeZone="GMT-03:00"/>
+					</h:outputText>
+				</p:column>
+				
+				<p:column style="width:32px;text-align: center">
+					<p:commandButton update=":frm:remDetail"
+						oncomplete="PF('remDialog').show()" icon="ui-icon-search"
+						title="View">
+						<f:setPropertyActionListener value="#{categoria}"
+							target="#{categoriaBean.categoria}" />
+					</p:commandButton>
+				</p:column>
+
+			</p:dataTable>
+			
+			
+			<p:dialog header="Reembolso Info" widgetVar="remDialog" modal="true"
+				showEffect="fade" hideEffect="fade" resizable="false">
+
+				<p:messages id="mgg" />
+				<p:outputPanel id="remDetail" style="text-align:center;">
+					<p:panelGrid columns="2"
+						rendered="#{not empty categoriaBean.categoria}"
+						columnClasses="label,value">
+
+						<f:facet name="header">
+							<h:graphicImage library="images" name="logo1.jpg" />
+						</f:facet>
+
+						<h:outputText value="Nome:" />
+						<p:inplace id="ajax50" editor="true" style="color:red">
+							<p:inputText value="#{categoriaBean.categoria.nome}"/>
+						</p:inplace>
+						
+					<p:commandButton action="#{categoriaBean.alterar(categoriaBean.categoria)}" update="tabela" value="alterar"/>
+							
+					</p:panelGrid>
+				</p:outputPanel>
+			</p:dialog>
+
+		</h:form>
+	</ui:define>
+</ui:composition>

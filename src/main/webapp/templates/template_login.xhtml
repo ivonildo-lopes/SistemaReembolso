@@ -1,0 +1,66 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="pt-br" xml:lang="pt-br"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+<h:head>
+	<title>Manhattan</title>
+	
+	<link rel="shortcut icon"
+		href="http://www.fanor.edu.br/_media/favicon.ico" />
+		
+	<ui:insert name="metatag">
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	</ui:insert>
+	
+	<h:outputStylesheet name="css/login.css" />
+	<h:outputStylesheet name="css/estilos.css" />	
+	
+	<script>
+		jQuery(document).ready(function(jQuery) {
+		    // Chamada da funcao upperText(); ao carregar a pagina
+		    upperText();
+		});
+		// Funcao que faz o texto ficar em uppercase
+		function upperText() {
+		    // Para tratar o colar
+		    jQuery(".up").bind('paste', function(e) {
+		        var el = jQuery(this);
+		        setTimeout(function() {
+		            var text = jQuery(el).val();
+		            el.val(text.toUpperCase());
+		        }, 100);
+		    });
+		    // Para tratar quando é digitado
+		jQuery(".up").keypress(function() {
+		    var el = jQuery(this);
+		    setTimeout(function() {
+		        var text = jQuery(el).val();
+		        el.val(text.toUpperCase());
+		    }, 100);
+		});
+		}
+
+
+		
+	</script>
+	
+	
+</h:head>
+<h:body>
+	
+	<div id="content" class="content-login">
+		<h:panelGroup id="page" layout="block">
+			<h:panelGroup id="container" layout="block">
+				<h:panelGroup id="content" layout="block">
+					<ui:insert name="content" />
+				</h:panelGroup>
+			</h:panelGroup>
+		</h:panelGroup>
+	</div>
+	
+	
+</h:body>
+</html>
+

@@ -1,0 +1,157 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+
+<h:head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<title><ui:insert name="titulo">Sistema de Pedidos de Venda</ui:insert></title>
+	<h:outputStylesheet library="css" name="sistema.css" />
+	<h:outputScript library="js" name="jquery.maskMoney.js" />
+	<link rel="shortcut icon"
+		href="#{facesContext.externalContext.requestContextPath}/resources/images/tabicon.ico"
+		type="image/x-icon" />
+
+	<script>
+		PrimeFaces.locales['pt'] = { 
+	    closeText: 'Fechar', 
+		prevText: 'Anterior', 
+		nextText: 'Próximo', 
+		currentText: 'Começo', 
+		monthNames: ['Janeiro','Fevereiro','Março','Abril','Maio','Junho','Julho','Agosto','Setembro','Outubro','Novembro','Dezembro'], 
+		monthNamesShort: ['Jan','Fev','Mar','Abr','Mai','Jun', 'Jul','Ago','Set','Out','Nov','Dez'], 
+		dayNames: ['Domingo','Segunda','Terça','Quarta','Quinta','Sexta','Sábado'], 
+		dayNamesShort: ['Dom','Seg','Ter','Qua','Qui','Sex','Sáb'], 
+		dayNamesMin: ['D','S','T','Q','Q','S','S'], 
+		weekHeader: 'Semana', 
+		firstDay: 0, 
+		isRTL: false, 
+		showMonthAfterYear: false, 
+		yearSuffix: '', 
+		timeOnlyTitle: 'Só Horas', 
+		timeText: 'Tempo', 
+		hourText: 'Hora', 
+		minuteText: 'Minuto', 
+		secondText: 'Segundo', 
+		ampm: false, 
+		month: 'Mês', 
+		week: 'Semana', 
+		day: 'Dia', 
+		allDayText : 'Todo o Dia' };
+
+
+
+		jQuery(document).ready(function(jQuery) {
+		    // Chamada da funcao upperText(); ao carregar a pagina
+		    upperText();
+		});
+		// Funcao que faz o texto ficar em uppercase
+		function upperText() {
+		    // Para tratar o colar
+		    jQuery(".up").bind('paste', function(e) {
+		        var el = jQuery(this);
+		        setTimeout(function() {
+		            var text = jQuery(el).val();
+		            el.val(text.toUpperCase());
+		        }, 100);
+		    });
+		    // Para tratar quando é digitado
+		jQuery(".up").keypress(function() {
+		    var el = jQuery(this);
+		    setTimeout(function() {
+		        var text = jQuery(el).val();
+		        el.val(text.toUpperCase());
+		    }, 100);
+		});
+		}
+
+
+		
+	</script>
+
+
+
+
+</h:head>
+
+<h:body>
+	<p:ajaxStatus styleClass="ajax-status" onsuccess="configurarMoeda()">
+		<f:facet name="start">
+			<h:graphicImage library="images" name="loading.gif" />
+		</f:facet>
+		<f:facet name="complete">
+			<h:outputText value="" />
+		</f:facet>
+	</p:ajaxStatus>
+
+	<header>
+	<div style="float: left">
+		<h:link outcome="/Home">
+			<h:graphicImage library="images" name="logoM.png" width="50"
+				height="50" style="margin-left:25px" />
+		</h:link>
+	</div>
+
+	<div style="float: right; margin-right: 110px">
+		<span
+			style="float: left; height: 30px; line-height: 30px; margin-right: 60px">
+			Olá <h:outputLabel value="#{seguranca.nomeUsuarioLogado}" /> |
+		</span>
+
+		<h:form style="display: inline-block">
+			<p:menubar styleClass="menu-sistema">
+				<p:submenu label="Cadastros">
+					<p:menuitem value="Categoria" outcome="/privado/categoria/form" />
+					<p:menuitem value="Setores" outcome="/privado/setor/form" />
+					<p:menuitem value="Permissao" outcome="/privado/permissao/form" />
+					<p:menuitem value="Projeto" outcome="/privado/projeto/form" />
+					<p:separator />
+					<p:menuitem value="Funcionarios"
+						outcome="/privado/funcionario/form" />
+					<p:menuitem value="Reembolso" outcome="/privado/reembolso/form" />
+				</p:submenu>
+				<p:submenu label="Consultas">
+					<p:menuitem value="Categoria" outcome="/privado/categoria/list" />
+					<p:menuitem value="Setores" outcome="/privado/setor/list" />
+					<p:menuitem value="Permissao" outcome="/privado/permissao/list" />
+					<p:menuitem value="Projeto" outcome="/privado/projeto/list" />
+					<p:separator />
+					<p:menuitem value="Funcionarios"
+						outcome="/privado/funcionario/list" />
+					<p:menuitem value="Reembolso" outcome="/privado/reembolso/list" />
+				</p:submenu>
+				<p:submenu label="Relatórios">
+					<p:menuitem value="Pedidos Emitidos"
+						 />
+				</p:submenu>
+
+				<p:menuitem value="Sair" url="/j_spring_security_logout" />
+			</p:menubar>
+		</h:form>
+	</div>
+	<div style="clear: both"></div>
+	</header>
+
+	<div id="conteudo">
+		<ui:insert name="corpo" />
+	</div>
+
+	<p:separator style="margin-top: 20px" />
+
+	<footer> Sistema Desenvolvido por Ivonildo Lopes Rodrigues </footer>
+
+	<script>
+			function configurarMoeda() {
+				$(".moeda").maskMoney({ decimal: ",", thousands: ".", allowZero: true });
+			}
+			
+			$(document).ready(function() {
+				configurarMoeda();
+			});
+		</script>
+</h:body>
+
+</html>

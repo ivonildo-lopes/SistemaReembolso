@@ -1,0 +1,34 @@
+<ui:composition template="/WEB-INF/template/LayoutPadrao.xhtml"
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+
+	<ui:define name="titulo">Dashboard 2</ui:define>
+
+	<ui:define name="corpo">
+		<p:messages severity="info" escape="false" showDetail="true"
+			autoUpdate="true" closable="true" id="msg" />
+		<h:form enctype="multipart/form-data">
+			
+			
+			teste1
+			<p:graphicImage name="c:\img\cupom1.PNG" />
+			teste2
+			<p:graphicImage name="c:/img/cupom1.png" />
+			teste3
+			<p:graphicImage name="/c:/img/cupom1.png" />
+			teste4
+			<p:graphicImage value="c:/img/cupom1.png"  library="c:/img/"/>
+			teste5
+			<p:graphicImage value="cupom1.png"  library="c:/img"/>
+		</h:form>
+
+
+
+
+
+	</ui:define>
+
+</ui:composition>

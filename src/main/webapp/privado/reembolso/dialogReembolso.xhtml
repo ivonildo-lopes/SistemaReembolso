@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+
+	<p:dialog header="Reembolso Info" widgetVar="remDialog" modal="true"
+		showEffect="fade" hideEffect="fade" resizable="false" closable="true"
+		responsive="true">
+
+		<p:messages id="mgg" />
+		<p:outputPanel id="remDetail" style="text-align:center;">
+			<p:panelGrid columns="6"
+				rendered="#{not empty reembolsoBean.reembolso}"
+				columnClasses="label,value">
+
+				<f:facet name="header">
+					<h:graphicImage library="images" name="logoM.png" height="80" />
+				</f:facet>
+
+				<f:facet name="footer">
+					<center>
+						<h:graphicImage library="imagesUpload" style="text-align : center"
+							name="#{reembolsoBean.reembolso.nomeDaImagem}" width="300"
+							height="300" />
+					</center>
+				</f:facet>
+
+
+
+				<h:outputText value="Nome:" styleClass="labelN" />
+				<h:outputText value="#{reembolsoBean.reembolso.funcionario.nome}"
+					style="color:red" />
+
+
+				<h:outputText value="Projeto" styleClass="labelN" />
+				<h:outputText value="#{reembolsoBean.reembolso.projeto.nome}" />
+
+
+
+				<h:outputText value="Valor do cupom" styleClass="labelN" />
+				<p:inplace id="ajax50" editor="true">
+					<p:inputText value="#{reembolsoBean.reembolso.valor}">
+						<f:convertNumber type="currency" />
+					</p:inputText>
+				</p:inplace>
+
+				<h:outputText value="Categoria" styleClass="labelN" />
+				<h:outputText value="#{reembolsoBean.reembolso.categoria.nome}" />
+
+				<h:outputText value="Observação" styleClass="labelN" />
+				<h:outputText value="#{reembolsoBean.reembolso.observacao}"
+					escape="false" />
+
+				<h:outputText value="Aprovado por:" styleClass="labelN" />
+				<h:outputText
+					value="#{reembolsoBean.reembolso.funcionario_aprovador}" />
+
+				<h:outputText value="Data aprovação:" styleClass="labelN" />
+				<h:outputText value="#{reembolsoBean.reembolso.data_aprovacao}">
+					<f:convertDateTime pattern="dd/MM/yyyy HH:mm:ss" locale="pt"
+						timeZone="GMT-03:00" />
+				</h:outputText>
+
+				<h:outputText value="Pagamento efetuado por:" styleClass="labelN" />
+				<h:outputText value="#{reembolsoBean.reembolso.funcionario_pagador}" />
+
+				<h:outputText value="Data Pagamento:" styleClass="labelN" />
+				<h:outputText value="#{reembolsoBean.reembolso.data_pagamento}">
+					<f:convertDateTime pattern="dd/MM/yyyy HH:mm:ss" locale="pt"
+						timeZone="GMT-03:00" />
+				</h:outputText>
+
+				<h:outputText value="Cadastrado por:" styleClass="labelN" />
+				<h:outputText
+					value="#{reembolsoBean.reembolso.funcionario_cadastro}" />
+
+				<h:outputText value="Data cadastro:" styleClass="labelN" />
+				<h:outputText value="#{reembolsoBean.reembolso.data_cadastro}">
+					<f:convertDateTime pattern="dd/MM/yyyy HH:mm:ss" locale="pt"
+						timeZone="GMT-03:00" />
+				</h:outputText>
+
+				<h:outputText value="Alterado por:" styleClass="labelN" />
+				<h:outputText
+					value="#{reembolsoBean.reembolso.funcionario_alteracao}" />
+
+				<h:outputText value="Data Alteração:" styleClass="labelN" />
+				<h:outputText value="#{reembolsoBean.reembolso.data_alteracao}">
+					<f:convertDateTime pattern="dd/MM/yyyy HH:mm:ss" locale="pt"
+						timeZone="GMT-03:00" />
+				</h:outputText>
+
+
+
+				<p:commandButton
+					action="#{reembolsoBean.alterar(reembolsoBean.reembolso)}"
+					update="tabela" value="alterar"
+					disabled="#{reembolsoBean.reembolso.isPago() or reembolsoBean.reembolso.isAprovado()}" />
+
+
+
+			</p:panelGrid>
+		</p:outputPanel>
+	</p:dialog>
+
+</ui:composition>

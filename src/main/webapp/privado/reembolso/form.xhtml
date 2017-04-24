@@ -1,0 +1,105 @@
+<ui:composition template="/WEB-INF/template/LayoutPadrao.xhtml"
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui" xmlns:o="http://omnifaces.org/ui">
+
+	<ui:define name="titulo">Cadastro de Reembolso</ui:define>
+
+	<ui:define name="corpo">
+
+		<f:metadata>
+			<o:viewParam name="reembolso" value="#{reembolsoBean.reembolso}" />
+			<f:event listener="#{reembolsoBean.inicializar}" type="preRenderView" />
+		</f:metadata>
+
+		<h1>Cadastro Reembolso</h1>
+		<h:form enctype="multipart/form-data">
+
+			<p:messages autoUpdate="true" closable="true" id="msg" />
+			<p:toolbar style="margin-top: 20px">
+				<p:toolbarGroup>
+					<p:button value="Novo" outcome="/privado/reembolso/form" style="height:30px" icon="ui-icon-plus"/>
+					<p:commandButton value="Salvar" id="botaoSalvar" style="height:30px" icon="ui-icon-disk"
+						action="#{reembolsoBean.salvar}" update="@form" />
+				</p:toolbarGroup>
+				<p:toolbarGroup align="right">
+					<p:button value="Pesquisa" outcome="/privado/reembolso/list" style="height:30px"
+					icon="ui-icon-search" />
+				</p:toolbarGroup>
+			</p:toolbar>
+
+			<p:panelGrid columns="2" id="painel"
+				style="width: 100%; margin-top: 20px" columnClasses="rotulo, campo">
+
+				<p:outputLabel value="Funcionario" for="funcionario" rendered="#{!seguranca.acessoBasico()}" />
+				<p:autoComplete id="funcionario" size="40" dropdown="true"
+					value="#{reembolsoBean.reembolso.funcionario}"
+					completeMethod="#{reembolsoBean.completarFuncionario}"
+					var="funcionario" itemValue="#{funcionario}"
+					itemLabel="#{funcionario.nome}" converter="funcionarioConverter"
+					placeholder="Informe o funcionario" 
+					rendered="#{seguranca.diferenteAcessoBasico()}"/>
+					
+				<p:outputLabel value="Categoria" for="categoria" />
+				<p:autoComplete id="categoria" size="40" dropdown="true"
+					value="#{reembolsoBean.reembolso.categoria}"
+					completeMethod="#{reembolsoBean.completarCategoria}"
+					var="categoria" itemValue="#{categoria}"
+					itemLabel="#{categoria.nome}" converter="categoriaConverter"
+					placeholder="Informe o categoria" />	
+					
+				<p:outputLabel value="Projeto" for="projeto" />
+				<p:autoComplete id="projeto" size="40" dropdown="true"
+					value="#{reembolsoBean.reembolso.projeto}"
+					completeMethod="#{reembolsoBean.completarProjeto}"
+					var="projeto" itemValue="#{projeto}"
+					itemLabel="#{projeto.nome}" converter="projetoConverter"
+					placeholder="Informe o projeto" />
+					
+
+
+				<p:outputLabel value="Valor" for="valor" />
+				<p:inputText id="valor" size="5" placeholder="R$ 0,00"
+					value="#{reembolsoBean.reembolso.valor}" styleClass="moeda" >
+					<f:convertNumber maxFractionDigits="2" minFractionDigits="2"/>
+				</p:inputText>	
+
+				<p:outputLabel value="Data" for="data" />
+				<p:calendar id="data" value="#{reembolsoBean.reembolso.data}"
+				placeholder="Data do Comprovante" />
+
+				<p:outputLabel value="Observação" for="obs" />
+				<p:editor id="obs"  
+					value="#{reembolsoBean.reembolso.observacao}" styleClass="up" />	
+
+				<h:panelGroup>
+					<p:outputLabel value="Cupom fiscal" style="padding:2px"/>
+					<h:graphicImage library="images" name="cam32.png"
+					style="vertical-align:bottom; margin-left:5px" />
+				</h:panelGroup>
+				
+				<p:fileUpload mode="advanced" label="Procurar Imagem" auto="true"
+					update="msg,nomeImg" allowTypes="/(\.|\/)(gif|jpe?g|png)$/"
+					fileUploadListener="#{reembolsoBean.doUpload}" 
+					/>
+
+				<p:outputLabel value="Nome da imagem" for="nomeImg" />
+				<p:outputLabel id="nomeImg" 
+					value="#{reembolsoBean.reembolso.nomeDaImagem}" />
+
+
+			</p:panelGrid>
+
+
+
+
+
+		</h:form>
+
+
+
+	</ui:define>
+
+</ui:composition>

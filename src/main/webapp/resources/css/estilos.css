@@ -1,0 +1,244 @@
+#tituloPage{
+	font-size: 1.4em;
+	font-style: italic;
+	font-family: palatino;
+	text-align: center;
+	
+}
+
+#cabecalhoPage{
+	padding: 20px;
+	height: 30px;
+	width: 80%;
+	margin-top:10px;
+	margin-left:10%;
+	margin-bottom: 10px;
+	background: #eeeeee;
+	/*border: 1px solid darkGray;*/
+	border-radius: 10px;
+	font-style: oblique;
+	color: #880099;
+}
+
+#barraEsquerdaPage{
+	border: thin solid lightGray;
+	padding: 5px;
+	width: 150px;
+	background: #eeeeee;
+}
+
+#conteudoPage{
+	padding: 5px;	
+	background: #eeeeee;
+	position: absolute;
+	right: 8px;
+	left: 180px;
+	height: 600px;
+	top:90px;
+	/*border: thin solid lightGray;*/
+	border-radius: 10px;
+	
+	
+}
+
+#rodapePage{
+	padding: 100px;
+	height: 30px;
+	width: 200px;
+	margin-top: 10px;
+	margin-bottom: 10px;
+	background: #dddddd;
+	border: 1px solid darkGray;
+	position: relative;
+	padding-top: 400px;
+}
+
+
+/*BOTOES*/
+.botaoRemove{
+	width: 60px;
+	background: #e3041b;
+	height: 25px;
+	border-radius: 10px;
+	margin-top: 5px;
+	margin-left:10px;
+	color: white;
+}
+
+.botaoRemove:HOVER{
+	color: yellow;
+}
+
+.botaoSalvar{
+	width: 60px;
+	background: #54a7a7;
+	height: 25px;
+	border-radius: 10px;
+	margin-top: 5px;
+	margin-left:10px;
+	color: white;
+}
+
+.botaoSalvar:HOVER{
+	
+	color: yellow;
+	
+}
+
+
+.botaoAltera{
+	width: 60px;
+	background: #54a7a7;
+	height: 25px;
+	border-radius: 10px;
+	margin-top: 5px;
+	margin-left:10px;
+	color: white;
+}
+
+.botaoNovo{
+	width: 60px;
+	background: teal;
+	height: 25px;
+	border-radius: 10px;
+	margin-top: 5px;
+	margin-left:10px;
+	color: white;
+}
+
+/*CSS LOGIN */
+
+#alinharCentro{
+	width: 100%;
+	height: 50%;
+	top: 20%;
+	position: absolute;
+}
+
+/*FORMULARIO DO LOGIN*/
+.form-login{
+	width: 300px;   /*largura*/
+	margin: 0 auto; 
+	position: relative; /*alinha ao centro*/
+	background: #f3f3f3; /*fundo cinza claro*/
+	border: 1px solid #fff;
+	border-radius: 5px; /*deixar as pontas das bordas arredondada*/
+	box-shadow: 0 1px 3px black; /*pinta borda*/
+	-moz-box-shadow: 0 1px 3px black;
+	-webkit-box-shadow: 0 1px 3px black; 
+}
+
+.form-login .tituloform{
+	padding: 40px 30px 30px 30px;
+}
+
+.form-login .tituloform h1{
+	font-family: 'Bree Serif', serif;
+	font-weight: 300;
+	font-size: 38px; /*tamanho da font do titulo*/
+	line-height: 34px;
+	color: #414848; /* cor do titulo*/
+	text-shadow: 1px 1px 0 rgba(256, 256, 256, 1.0);
+	margin-bottom: 10px;/* dar um espaço de 10px abaixo do titulo*/
+}
+
+.form-login .tituloform span{
+	font-size: 11px; /*tamanho da fonte*/ 
+	line-height: 16px; 
+	color: #678889; /*cor da font*/
+}
+
+
+.form-login .tituloform img{
+	margin-top: -14px; /*posiciona a imagem ao lado do titulo*/
+	float: right; /*alinhamento*/
+	height: 50px;
+}
+
+
+
+.form-login .conteudo {
+	padding: 0 30px 25px 30px;
+	
+}
+
+
+.form-login .conteudo .campos {
+	width: 188px;
+	padding: 15px 25px;
+	font-family: "HelveticaNeue-Light", "Helvetica Neue Light",
+		"Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
+	font-weight: 400;
+	font-size: 13px; /*tamanho dentro do campo*/
+	color: #9d9e9e;
+	text-shadow: 1px 1px 0 rgba(256, 256, 256, 1.0);
+	background: #fff;
+	border: 1px solid #fff;
+	border-radius: 5px;
+	box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.50);
+	-moz-box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.50);
+	-webkit-box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.50);
+	margin-bottom: 5px;
+}
+
+.usuario-icon, .password-icon {
+	width: 46px; /*largura do icone*/
+	height: 47px; /*tamanho do icone*/
+	display: block;
+	position: absolute;
+	left: 0px;
+	padding-right: 2px;
+	z-index: -1;
+	-moz-border-radius-topleft: 5px;
+	-moz-border-radius-bottomleft: 5px;
+	-webkit-border-top-left-radius: 5px;
+	-webkit-border-bottom-left-radius: 5px;
+}
+
+.usuario-icon {
+	top: 153px;
+	background: green;
+	height: 30px;		
+}
+
+.password-icon {
+	top: 160px;	
+	background: red url("/resources/images/pass-icon.png");
+	height: 30px;		
+}
+
+
+.conteudo campos:focus+div {
+	left: -46px;
+}
+
+/* Animation */
+.campos, .usuario-icon, .password-icon, .button, .register {
+	transition: all 0.5s ease;
+	-moz-transition: all 0.5s ease;
+	-webkit-transition: all 0.5s ease;
+	-o-transition: all 0.5s ease;
+	-ms-transition: all 0.5s ease;
+}
+
+
+.botaoLoginn{
+	width: 60px;
+	background: #53a6ce;
+	height: 35px;
+	border-radius: 10px;
+	margin-top: 10px;
+	color: white;
+}
+
+#corpoForm{
+	overflow: auto;
+	padding-bottom: 650px;
+}
+
+#rodapeForm{
+	position: relative;
+	margin-top: -650px; /* valor negativo da altura do rodapé */
+	height: 150px;
+	clear: both;
+}
