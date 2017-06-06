@@ -26,17 +26,9 @@
 				</p:toolbarGroup>
 			</p:toolbar>
 
-			<p:panelGrid columns="2" id="painelBasico"
-				rendered="#{seguranca.acessoBasico()}"
-				style="width: 100%; margin-top: 20px" columnClasses="rotulo, campo">
-
-				<p:outputLabel value="Nome" />
-				<p:inputText size="60" value="#{reembolsoBean.filtro.nome}"
-					styleClass="up" disabled="true" />
-			</p:panelGrid>
+	
 
 			<p:panelGrid columns="2" id="painel"
-				rendered="#{!seguranca.acessoBasico()}"
 				style="width: 100%; margin-top: 20px" columnClasses="rotulo, campo">
 
 				<p:outputLabel value="Nome" for="nome" />
@@ -62,7 +54,7 @@
 						<f:convertNumber type="currency" />
 					</h:outputText>
 				</p:column>
-
+				
 				<p:column headerText="Foto" width="60">
 					<p:commandButton styleClass="camera" value="" id="content"
 						style="background-color:white;border:0px;margin-left:5px" />
@@ -72,6 +64,8 @@
 							name="#{reembolso.nomeDaImagem}" />
 					</p:tooltip>
 				</p:column>
+
+			
 
 				<p:column headerText="Projeto">
 					<h:outputText value="#{reembolso.projeto.nome}" />

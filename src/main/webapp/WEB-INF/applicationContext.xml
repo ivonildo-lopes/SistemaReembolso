@@ -1,6 +1,5 @@
 <beans:beans xmlns="http://www.springframework.org/schema/security"
-	xmlns:beans="http://www.springframework.org/schema/beans"
-	 xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:beans="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://www.springframework.org/schema/beans
 		http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
 		http://www.springframework.org/schema/security
@@ -16,17 +15,16 @@
 	<http auto-config="false" use-expressions="true">
 		<intercept-url pattern="/Home.xhtml" access="isAuthenticated()" />
 		<intercept-url pattern="/AcessoNegado.xhtml" access="isAuthenticated()" />
-		
-		<intercept-url pattern="/privado/reembolso/**"
+
+		<intercept-url pattern="/privado/reembolso/form.xhtml"
+			access="hasAnyRole('ADMINISTRADOR','BASICO')" />
+
+		<intercept-url pattern="/privado/reembolso/list.xhtml"
 			access="hasAnyRole('ADMINISTRADOR','BASICO','FINANCEIRO','APROVADOR')" />
-		<intercept-url pattern="/privado/setor/**"
-			access="hasAnyRole('ADMINISTRADOR','APROVADOR')" />
-		<intercept-url pattern="/privado/permissao/**"
-			access="hasAnyRole('ADMINISTRADOR')" />
-		<intercept-url pattern="/privado/funcionario/**"
-			access="hasAnyRole('ADMINISTRADOR')" />
-		<intercept-url pattern="/privado/categoria/**"
-			access="hasAnyRole('ADMINISTRADOR','APROVADOR')" />
+		<intercept-url pattern="/privado/setor/**" access="hasAnyRole('ADMINISTRADOR')" />
+		<intercept-url pattern="/privado/permissao/**" access="hasAnyRole('ADMINISTRADOR')" />
+		<intercept-url pattern="/privado/funcionario/**" access="hasAnyRole('ADMINISTRADOR')" />
+		<intercept-url pattern="/privado/categoria/**" access="hasAnyRole('ADMINISTRADOR')" />
 
 		<form-login login-page="/login.xhtml"
 			authentication-failure-url="/login.xhtml?invalid=true"

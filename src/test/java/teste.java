@@ -9,9 +9,9 @@ public class teste {
 	public static void main(String[] args) throws ParseException {
 		// TODO Auto-generated method stub
 
-		// EntityManagerFactory emf =
-		// Persistence.createEntityManagerFactory("PedidoPU");
-		// EntityManager em = emf.createEntityManager();
+		 EntityManagerFactory emf =
+		 Persistence.createEntityManagerFactory("ChamadoPU");
+		 EntityManager em = emf.createEntityManager();
 
 		//
 		//EntityManager em = EntityManagerUtil.getEntityManager();
@@ -159,9 +159,9 @@ public class teste {
 //			
 		//System.out.println("quantidade: " + soma + " " + contador);
 
-		EntityManagerFactory factory = Persistence.createEntityManagerFactory("ChamadoPU");
-        
-        factory.close();
+//		EntityManagerFactory factory = Persistence.createEntityManagerFactory("ChamadoPU");
+//        
+//        factory.close();
 
 
 	}

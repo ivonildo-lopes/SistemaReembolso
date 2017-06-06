@@ -173,7 +173,8 @@ public class ReembolsoBean implements Serializable {
 
 		if (file != null) {
 			
-			String caminho = "C:/workspace-estudo/SistemaReembolso/src/main/webapp/resources/imagesUpload/";
+			String caminho = "C:/desenvolvimento/projetos/SistemaReembolso/src/main/webapp/resources/imagesUpload/";
+			//String caminho = "C:/desenvolvimento/imagens/";
 			//String caminho1 = "c:/img/";
 			
 			File file1 = new File(caminho,

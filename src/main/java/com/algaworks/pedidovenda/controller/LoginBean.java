@@ -20,9 +20,6 @@ import com.algaworks.pedidovenda.util.jsf.FacesUtil;
 //@SessionScoped
 public class LoginBean implements Serializable {
 
-
-	
-	
 	private static final long serialVersionUID = 1L;
 	
 	private FacesContext facesContext = FacesContext.getCurrentInstance();
@@ -36,10 +33,7 @@ public class LoginBean implements Serializable {
 	private HttpServletResponse response = (HttpServletResponse) getExternalContext()
 			.getResponse();
 	
-	
-	
 	private String usuario;
-	
 	
 	public LoginBean() {
 		
